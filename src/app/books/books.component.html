@@ -1,5 +1,8 @@
 <div class="container">
-  <h1>Book List</h1>
+  <a [routerLink]="['/book-create']" class="btn btn-outline-dark">
+	Добавить
+  </a>
+  <button (click)="login()">login</button>
   <table class="table">
     <thead>
       <tr>
@@ -15,6 +18,7 @@
         <td>{{ book.name }}</td>
         <td>{{ book.year }}</td>
         <td>{{ book.author }}</td>
+        <td><a  class="btn btn-primary" [routerLink]="['/book-details', book.id]">Открыть</a></td>
       </tr>
     </tbody>
   </table>

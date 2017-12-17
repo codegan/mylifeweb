@@ -1,25 +1,31 @@
 import { Component } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { BooksService } from '../services/books.service';
+import {Books} from '../books';
 
 @Component({
   selector: 'app-books',
   templateUrl: './books.component.html',
-  styleUrls: ['./books.component.css']
+  styleUrls: ['./books.component.css'],
+  providers: [BooksService]
 })
 export class BooksComponent {
-   books: any = null;
+  private books: Array<Books> = new Array<Books>();
 
-  constructor(private _http: Http) {
-    this.getMyBlog();
+  constructor(private booksService: BooksService) {
+    this.getBooks();
   }
 
-  private getMyBlog() {
-    return this._http.get('http://localhost:8080/mylife/books/')
-                .map((res: Response) => res.json())
+  private getBooks() {
+    return this.booksService.getBooks()
                  .subscribe(data => {
-                        this.books = data;
+                        this.books = data.json();
                         console.log(this.books);
                 });
+  }
+
+  private login() {
+    this.booksService.login();
   }
 }
